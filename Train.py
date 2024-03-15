@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 import wandb
 import hyperparameter_config
-wandb.login(key="0f6963d23192cbab4399ad9ec6e7475c7a0d6345")
+wandb.login(key="Your-API-Key")
 
 from neural_network import NeuralNetwork, train_neural_network
 
