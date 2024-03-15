@@ -385,7 +385,7 @@ def train_neural_network(nn, x_train_input, y_train, x_test_input, y_test, x_val
     val_accuracy = nn.compute_accuracy(x_val, y_val, weights, biases, num_hidden_layers, activation_function)
     train_accuracy = nn.compute_accuracy(x_train_input, y_train, weights, biases, num_hidden_layers, activation_function)
 
-    print(f"val accuracy: {val_accuracy * 100:.2f}%, Train Loss: {avg_train_loss:.4f}, Val loss: {val_loss:.4f}")
+    print(f"Val accuracy: {val_accuracy * 100:.2f}%, Accuracy : {train_accuracy * 100:.2f}%, Val loss: {val_loss:.4f}, Loss: {avg_train_loss:.4f}")
     wandb.log({'val_accuracy' : val_accuracy * 100, 'accuracy' : train_accuracy * 100, 'loss' : avg_train_loss, 'val loss' : val_loss, 'epoch' : iter}, step=iter)
 
   return weights, biases
