@@ -18,7 +18,7 @@ To train the neural network, please follow the steps as given below:
 
 Link to the wandb report: [Link](https://wandb.ai/cs23m024-gaurav/CS6910_Assignment_1/reports/Copy-of-oikantik-s-CS6910-Assignment-1--Vmlldzo3MTYxODMy)
 
-### Default Parameters
+### Hyperparameters and their default values
 | Name | Default Value | Description |
 | :---: | :-------------: | :----------- |
 | `--wandb_project` | CS6910_Assignment_1 | Project name used to track experiments in Weights & Biases dashboard |
