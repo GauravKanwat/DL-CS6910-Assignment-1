@@ -3,7 +3,7 @@ import argparse
 def configParse():
     parser = argparse.ArgumentParser(description='Train neural network with specified parameters.')
     parser.add_argument('--wandb_project', type = str, default = 'CS6910_Assignment_1', help = 'project name')
-    parser.add_argument('--wandb_entity', type = str, default='Gaurav', help = 'wandb entity')
+    parser.add_argument('--wandb_entity', type = str, default='CS23M024', help = 'wandb entity')
     parser.add_argument('--dataset', type = str, default = 'fashion_mnist', help = 'dataset')
     parser.add_argument('--epochs', type = int, default = 10, help='epochs')
     parser.add_argument('--batch_size', type = int, default = 64, help='batch size')

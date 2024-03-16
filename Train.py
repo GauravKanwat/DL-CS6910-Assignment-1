@@ -13,7 +13,7 @@ sys.path.append('Assignment_1')
 import hyperparameter_config
 
 #Put your Wandb API Key
-wandb.login(key="Your-API-Key")
+wandb.login()
 
 from neural_network import NeuralNetwork, train_neural_network
 
@@ -74,7 +74,7 @@ def main(args):
   sweep_config = {
      'method' : 'random',
      'project' : args.wandb_project,
-     'name' : 'Test Accuracy and Confusion Matrix',
+     'name' : 'Testing MSE',
      'entity' : args.wandb_entity,
      'metric' : {
         'name' : 'val_accuracy',

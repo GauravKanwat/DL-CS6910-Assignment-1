@@ -77,7 +77,10 @@ class NeuralNetwork:
         # avoiding overflow
         exp_x = np.exp(x - max_x)
         return exp_x / np.sum(exp_x, axis=0)
-
+    
+    def apply_mse(self, pred_output, Y):
+      one_hot_Y = self.one_hot(Y)
+      return -2 * np.multiply((pred_output - one_hot_Y), np.multiply(pred_output, (1 - pred_output)))
     
     def feedforward_propagation(self, X, weights, biases, num_hidden_layers, activation_function):
       a = []
@@ -136,14 +139,17 @@ class NeuralNetwork:
     def deriv_identity(self, x):
       return 1
 
-    def back_propagation(self, Y, fwd_A, fwd_H, weights, biases, pred_output, num_hidden_layers, activation_function):
+    def back_propagation(self, Y, fwd_A, fwd_H, weights, biases, pred_output, num_hidden_layers, activation_function, loss):
       one_hot_Y = self.one_hot(Y)
       dA = {}
       dH = {}
       dW = {}
       dB = {}
 
-      dA[num_hidden_layers] = pred_output - one_hot_Y
+      if loss == 'cross_entropy':
+        dA[num_hidden_layers] = pred_output - one_hot_Y
+      elif loss == 'mse':
+        dA[num_hidden_layers] = self.apply_mse(pred_output, Y)
 
       for k in range(num_hidden_layers, 0, -1):
         dW[k] = np.dot(dA[k], fwd_H[k-1].T)
@@ -334,7 +340,7 @@ def train_neural_network(nn, x_train_input, y_train, x_test_input, y_test, x_val
           train_loss = nn.loss_function(pred_output, one_hot_Y, loss, weights, weight_decay)
           total_train_loss += train_loss
 
-          dW, dB = nn.back_propagation(Y_batch, fwd_a, fwd_h, weights, biases, pred_output, num_hidden_layers, activation_function)
+          dW, dB = nn.back_propagation(Y_batch, fwd_a, fwd_h, weights, biases, pred_output, num_hidden_layers, activation_function, loss)
           weights, biases = nn.gradient_descent(weights, biases, dW, dB, eta)
 
         elif optimizer == "momentum":
@@ -344,7 +350,7 @@ def train_neural_network(nn, x_train_input, y_train, x_test_input, y_test, x_val
           train_loss = nn.loss_function(pred_output, one_hot_Y, loss, weights, weight_decay)
           total_train_loss += train_loss
 
-          dW, dB = nn.back_propagation(Y_batch, fwd_a, fwd_h, weights, biases, pred_output, num_hidden_layers, activation_function)
+          dW, dB = nn.back_propagation(Y_batch, fwd_a, fwd_h, weights, biases, pred_output, num_hidden_layers, activation_function, loss)
           weights, biases, _, _ = nn.momentum_based_gradient_descent(weights, biases, prev_weights, prev_biases, dW, dB, eta, momentum)
 
         elif optimizer == "nesterov":
@@ -360,7 +366,7 @@ def train_neural_network(nn, x_train_input, y_train, x_test_input, y_test, x_val
           train_loss = nn.loss_function(pred_output, one_hot_Y, loss, weights, weight_decay)
           total_train_loss += train_loss
 
-          dW, dB = nn.back_propagation(Y_batch, fwd_a, fwd_h, lookahead_w, lookahead_b, pred_output, num_hidden_layers, activation_function)
+          dW, dB = nn.back_propagation(Y_batch, fwd_a, fwd_h, lookahead_w, lookahead_b, pred_output, num_hidden_layers, activation_function, loss)
           weights, biases, prev_weights, prev_biases = nn.momentum_based_gradient_descent(weights, biases, prev_weights, prev_biases, dW, dB, epochs, eta, beta)
 
         elif optimizer == "rmsProp":
@@ -370,7 +376,7 @@ def train_neural_network(nn, x_train_input, y_train, x_test_input, y_test, x_val
           train_loss = nn.loss_function(pred_output, one_hot_Y, loss, weights, weight_decay)
           total_train_loss += train_loss
 
-          dW, dB = nn.back_propagation(Y_batch, fwd_a, fwd_h, weights, biases, pred_output, num_hidden_layers, activation_function)
+          dW, dB = nn.back_propagation(Y_batch, fwd_a, fwd_h, weights, biases, pred_output, num_hidden_layers, activation_function, loss)
           weights, biases = nn.rmsProp_gradient_descent(weights, biases, dW, dB, eta, eps, beta)
 
         elif optimizer == "adam":
@@ -380,7 +386,7 @@ def train_neural_network(nn, x_train_input, y_train, x_test_input, y_test, x_val
           train_loss = nn.loss_function(pred_output, one_hot_Y, loss, weights, weight_decay)
           total_train_loss += train_loss
 
-          dW, dB = nn.back_propagation(Y_batch, fwd_a, fwd_h, weights, biases, pred_output, num_hidden_layers, activation_function)
+          dW, dB = nn.back_propagation(Y_batch, fwd_a, fwd_h, weights, biases, pred_output, num_hidden_layers, activation_function, loss)
           weights, biases, v_w, v_b, m_w, m_b, ts = nn.adam_gradient_descent(weights, biases, ts, v_w, v_b, m_w, m_b, dW, dB, eta, eps, beta1, beta2)
 
         elif optimizer == "nadam":
@@ -396,7 +402,7 @@ def train_neural_network(nn, x_train_input, y_train, x_test_input, y_test, x_val
           train_loss = nn.loss_function(pred_output, one_hot_Y, loss, weights, weight_decay)
           total_train_loss += train_loss
 
-          dW, dB = nn.back_propagation(Y_batch, fwd_a, fwd_h, lookahead_w, lookahead_b, pred_output, num_hidden_layers, activation_function)
+          dW, dB = nn.back_propagation(Y_batch, fwd_a, fwd_h, lookahead_w, lookahead_b, pred_output, num_hidden_layers, activation_function, loss)
           weights, biases, v_w, v_b, m_w, m_b, ts = nn.adam_gradient_descent(weights, biases, ts, v_w, v_b, m_w, m_b, dW, dB, eta, eps, beta1, beta2)
 
     # <---------------------------------------START---------------------------------------------->
