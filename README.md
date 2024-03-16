@@ -16,7 +16,7 @@ To train the neural network, please follow the steps given below:
    - Example: `Python Train.py --batch_size 64` to run the NN with a batch size of 64.
 5. Track the progress of runs and sweeps on [wandb.ai](https://wandb.ai/home).
 
-Link to the wandb report: [Link](https://wandb.ai/cs23m024-gaurav/CS6910_Assignment_1/reports/Copy-of-oikantik-s-CS6910-Assignment-1--Vmlldzo3MTYxODMy)
+Link to the wandb report: [Link](https://api.wandb.ai/links/cs23m024-gaurav/uqtf06z1)
 
 ### Hyperparameters and their default values
 | Name | Default Value | Description |
