@@ -18,7 +18,7 @@ class NeuralNetwork:
       prev_biases = {}
 
       # Xavier initialization
-      if initialization == "xavier":
+      if initialization == "Xavier":
         weights[0] = np.random.randn(hidden_neurons_list[0], num_of_pixels) * np.sqrt(1 / num_of_pixels)
         biases[0] = np.zeros((hidden_neurons_list[0], 1))
 
@@ -71,16 +71,22 @@ class NeuralNetwork:
       return x
 
     def softmax(self, x):
+        
         max_x = np.max(x, axis=0)
-        exp_x = np.exp(x - max_x)  # avoiding overflow
+
+        # avoiding overflow
+        exp_x = np.exp(x - max_x)
         return exp_x / np.sum(exp_x, axis=0)
 
+    
     def feedforward_propagation(self, X, weights, biases, num_hidden_layers, activation_function):
       a = []
       h = []
 
       for k in range(num_hidden_layers):
+        
         if k == 0:
+          
           a.append(np.dot(weights[k], X) + biases[k])
           if(activation_function == "reLU"):
             h.append(self.reLU(a[k]))
@@ -90,7 +96,9 @@ class NeuralNetwork:
             h.append(self.tanh(a[k]))
           elif(activation_function == "identity"):
             h.append(self.identity(a[k]))
+        
         else:
+          
           a.append(np.dot(weights[k], h[k-1]) + biases[k])
           if(activation_function == "reLU"):
             h.append(self.reLU(a[k]))
@@ -101,6 +109,7 @@ class NeuralNetwork:
           elif(activation_function == "identity"):
             h.append(self.identity(a[k]))
 
+      
       a.append(np.dot(weights[num_hidden_layers], h[num_hidden_layers - 1]) + biases[num_hidden_layers])
       y_hat = self.softmax(a[-1])
       return a, h, y_hat
@@ -271,6 +280,18 @@ class NeuralNetwork:
       ts += 1
 
       return weights, biases, v_w, v_b, m_w, m_b, ts
+    
+    # <---------------------------------------------START--------------------------------------------------->
+    
+
+    ''' Add new optimizers here '''
+
+
+
+
+
+    # <---------------------------------------------END----------------------------------------------------->
+
 
     
     def compute_accuracy(self, X_test, y_test, weights, biases, num_hidden_layers, activation_function):
@@ -280,6 +301,9 @@ class NeuralNetwork:
       accuracy = np.mean(pred_labels == y_test)
       return accuracy
     
+
+
+
 
 def train_neural_network(nn, x_train_input, y_train, x_test_input, y_test, x_val, y_val, weights, biases, prev_weights, prev_biases, num_hidden_layers, activation_function, optimizer, epochs, batch_size, eta, momentum, beta, beta1, beta2, eps, weight_decay, loss):
   
@@ -375,6 +399,18 @@ def train_neural_network(nn, x_train_input, y_train, x_test_input, y_test, x_val
           dW, dB = nn.back_propagation(Y_batch, fwd_a, fwd_h, lookahead_w, lookahead_b, pred_output, num_hidden_layers, activation_function)
           weights, biases, v_w, v_b, m_w, m_b, ts = nn.adam_gradient_descent(weights, biases, ts, v_w, v_b, m_w, m_b, dW, dB, eta, eps, beta1, beta2)
 
+    # <---------------------------------------START---------------------------------------------->
+    
+    
+    ''' Call new optimizer here '''
+
+
+
+    
+    
+    
+    # <---------------------------------------END------------------------------------------------>
+    
     avg_train_loss = total_train_loss / (data_size / batch_size)
 
     _, _, val_pred = nn.feedforward_propagation(x_val, weights, biases, num_hidden_layers, activation_function)
@@ -382,10 +418,19 @@ def train_neural_network(nn, x_train_input, y_train, x_test_input, y_test, x_val
     val_loss = nn.loss_function(val_pred, val_one_hot, loss, weights, weight_decay)
     if(loss == 'mse'):
       val_loss = val_loss / (data_size / batch_size)
+
+    _, _, test_pred = nn.feedforward_propagation(x_test_input, weights, biases, num_hidden_layers, activation_function)
+    test_one_hot = nn.one_hot(y_test)
+    test_loss = nn.loss_function(test_pred, test_one_hot, loss, weights, weight_decay)
+    if(loss == 'mse'):
+      test_loss = test_loss / (data_size / batch_size)
+    
     val_accuracy = nn.compute_accuracy(x_val, y_val, weights, biases, num_hidden_layers, activation_function)
     train_accuracy = nn.compute_accuracy(x_train_input, y_train, weights, biases, num_hidden_layers, activation_function)
+    test_accuracy = nn.compute_accuracy(x_test_input, y_test, weights, biases, num_hidden_layers, activation_function)
 
-    print(f"Val accuracy: {val_accuracy * 100:.2f}%, Accuracy : {train_accuracy * 100:.2f}%, Val loss: {val_loss:.4f}, Loss: {avg_train_loss:.4f}")
-    wandb.log({'val_accuracy' : val_accuracy * 100, 'accuracy' : train_accuracy * 100, 'loss' : avg_train_loss, 'val loss' : val_loss, 'epoch' : iter}, step=iter)
+    print(f"val accuracy: {val_accuracy * 100:.2f}%, Test accuracy : {test_accuracy * 100:.2f}, Val loss: {val_loss:.4f}, Test Loss: {test_loss:.4f}")
+    wandb.log({'val_accuracy' : val_accuracy * 100, 'accuracy' : train_accuracy * 100, 'test_accuracy' : test_accuracy * 100,
+               'loss' : avg_train_loss, 'val loss' : val_loss, 'test_loss' : test_loss, 'epoch' : iter}, step=iter)
 
   return weights, biases

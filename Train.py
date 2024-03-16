@@ -7,6 +7,9 @@ from tqdm import tqdm, trange
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 import wandb
+
+import sys
+sys.path.append('Assignment_1')
 import hyperparameter_config
 wandb.login(key="Your-API-Key")
 
@@ -68,8 +71,9 @@ def main(args):
   # Define hyperparameters
   sweep_config = {
      'method' : 'random',
-     'wandb_entity' : args.wandb_entity,
-     'name' : args.wandb_project,
+     'project' : args.wandb_project,
+     'name' : 'Test Accuracy and Confusion Matrix',
+     'entity' : args.wandb_entity,
      'metric' : {
         'name' : 'val_accuracy',
         'goal' : 'maximize',
@@ -127,7 +131,7 @@ def main(args):
   run_name = ""
 
   def train():
-    with wandb.init() as run:
+    with wandb.init(project = args.wandb_project, entity = args.wandb_entity) as run:
       
       # Creates names of runs based on parameters. Example => hl_4_bs_64_ac_reLU
       config = wandb.config
@@ -158,7 +162,7 @@ def main(args):
       wandb.sklearn.plot_confusion_matrix(y_test, y_test_pred, class_names)
   
   
-  sweep_id = wandb.sweep(sweep=sweep_config, project='Testing')
+  sweep_id = wandb.sweep(sweep=sweep_config)
   wandb.agent(sweep_id, function=train,count=1)
   wandb.finish()
 
