@@ -138,7 +138,8 @@ def main(args):
       run_name = "hl_" + str(config.num_hidden_layers) + "_bs_" + str(config.batch_size) + "_ac_" + config.activation_function
       wandb.run.name = run_name
 
-    #   printImages(x_train, y_train)           ---> run when want to print the images 
+      # ---> run when want to print the images 
+      # printImages(x_train, y_train)
       
 
       # creating the list of hidden_neurons
