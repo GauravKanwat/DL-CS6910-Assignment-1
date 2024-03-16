@@ -11,6 +11,8 @@ import wandb
 import sys
 sys.path.append('Assignment_1')
 import hyperparameter_config
+
+#Put your Wandb API Key
 wandb.login(key="Your-API-Key")
 
 from neural_network import NeuralNetwork, train_neural_network
