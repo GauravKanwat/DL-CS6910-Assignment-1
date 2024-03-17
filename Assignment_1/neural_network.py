@@ -232,25 +232,6 @@ class NeuralNetwork:
         prev_biases[l] = ub
       return weights, biases, prev_weights, prev_biases
 
-    
-    def adagrad_gradient_descent(self, weights, biases, dW, dB, eta, eps):
-      
-      v_w = {}
-      v_b = {}
-
-      for l in range(1, self.num_hidden_layers + 1):
-        v_w[l] = 0
-        v_b[l] = 0
-
-      for l in range(1, self.num_hidden_layers + 1):
-        v_w[l] = v_w[l] + dW[l]**2
-        v_b[l] = v_b[l] + dB[l]**2
-
-        # Update weights and biases
-        weights[l] -= eta * dW[l] / (np.sqrt(v_w[l]) + eps)
-        biases[l] -= eta * dB[l] / (np.sqrt(v_b[l]) + eps)
-
-      return weights, biases
 
     
     def rmsProp_gradient_descent(self, weights, biases, dW, dB, eta, eps, beta):
@@ -382,7 +363,7 @@ def train_neural_network(nn, x_train_input, y_train, x_test_input, y_test, x_val
           total_train_loss += train_loss
 
           dW, dB = nn.back_propagation(Y_batch, fwd_a, fwd_h, lookahead_w, lookahead_b, pred_output, num_hidden_layers, activation_function, loss)
-          weights, biases, prev_weights, prev_biases = nn.momentum_based_gradient_descent(weights, biases, prev_weights, prev_biases, dW, dB, epochs, eta, beta)
+          weights, biases, prev_weights, prev_biases = nn.momentum_based_gradient_descent(weights, biases, prev_weights, prev_biases, dW, dB, eta, beta)
 
         elif optimizer == "rmsProp":
           fwd_a, fwd_h, pred_output = nn.feedforward_propagation(X_batch, weights, biases, num_hidden_layers, activation_function)
