@@ -39,7 +39,7 @@ class NeuralNetwork:
 
         return weights, biases, prev_weights, prev_biases
 
-      #random initialization
+      # Random initialization
       else:
         weights[0] = np.random.rand(hidden_neurons_list[0], num_of_pixels) - 0.5
         biases[0] = np.random.rand(hidden_neurons_list[0], 1) - 0.5
@@ -71,13 +71,14 @@ class NeuralNetwork:
     def identity(self, x):
       return x
 
+    
     def softmax(self, x):
-        
         max_x = np.max(x, axis=0)
 
         # avoiding overflow
         exp_x = np.exp(x - max_x)
         return exp_x / np.sum(exp_x, axis=0)
+        
     
     def apply_mse(self, pred_output, Y):
       one_hot_Y = self.one_hot(Y)
@@ -85,7 +86,7 @@ class NeuralNetwork:
     
 
 
-    # Feedforward Propagation
+    # Feedforward Propagation algorithm
     def feedforward_propagation(self, X, weights, biases, num_hidden_layers, activation_function):
       a = []
       h = []
@@ -121,6 +122,7 @@ class NeuralNetwork:
       y_hat = self.softmax(a[-1])
       return a, h, y_hat
 
+    
     def one_hot(self, Y):
       if Y.max() != 9:
         one_hot_Y = np.zeros((Y.size, 10))
@@ -130,19 +132,25 @@ class NeuralNetwork:
       one_hot_Y = one_hot_Y.T
       return one_hot_Y
 
+    
     def deriv_sigmoid(self, Z):
       func = self.sigmoid(Z)
       return func * (1 - func)
 
+    
     def deriv_reLU(self, Z):
       return Z > 0
+        
 
     def deriv_tanh(self, x):
       return 1 - np.tanh(x)**2
 
+    
     def deriv_identity(self, x):
       return 1
 
+
+    # Back propagation algorithm
     def back_propagation(self, Y, fwd_A, fwd_H, weights, biases, pred_output, num_hidden_layers, activation_function, loss):
       one_hot_Y = self.one_hot(Y)
       dA = {}
@@ -179,7 +187,7 @@ class NeuralNetwork:
     
     def loss_function(self, y_pred, y_true, loss, weights, weight_decay):
       
-      #Cross Entropy
+      # Cross Entropy
       if(loss == 'cross_entropy'):
         epsilon = 1e-30
         cross_entropy_loss = -np.mean(np.sum(y_true * np.log(y_pred + epsilon), axis=0))
@@ -188,7 +196,7 @@ class NeuralNetwork:
         reg_loss = 0.5 * weight_decay * sum(np.sum(w ** 2) for w in weights.values())
         total_loss = cross_entropy_loss + reg_loss
 
-      #Mean Squared Error  
+      # Mean Squared Error  
       elif(loss == 'mse'):
         mse_loss = np.mean(np.sum((y_pred - y_true) ** 2))
 
@@ -201,7 +209,6 @@ class NeuralNetwork:
     
     
     # Gradient descent and Optimizers
-    
     def gradient_descent(self, weights, biases, dW, dB, eta):
 
       # Update weights and biases
