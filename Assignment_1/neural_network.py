@@ -4,6 +4,7 @@ import wandb
 
 class NeuralNetwork:
     def __init__(self, num_of_pixels, hidden_neurons_list, num_hidden_layers, output_neurons):
+
       self.num_of_pixels = num_of_pixels
       self.hidden_neurons_list = hidden_neurons_list
       self.num_hidden_layers = num_hidden_layers
@@ -82,6 +83,9 @@ class NeuralNetwork:
       one_hot_Y = self.one_hot(Y)
       return -2 * np.multiply((pred_output - one_hot_Y), np.multiply(pred_output, (1 - pred_output)))
     
+
+
+    # Feedforward Propagation
     def feedforward_propagation(self, X, weights, biases, num_hidden_layers, activation_function):
       a = []
       h = []
@@ -193,6 +197,8 @@ class NeuralNetwork:
         total_loss = mse_loss + reg_loss
       return total_loss
 
+    
+    
     
     # Gradient descent and Optimizers
     
