@@ -68,17 +68,17 @@ Additionally, each neuron in the network is associated with an activation functi
 
 ### Training Procedure
 
-1. Initialization: Initialize the neural network model architecture with the specified number of input units, hidden layers, hidden neurons, and output units. Also, initialize the weights and biases of the network, either randomly or using a specific initialization method such as Xavier.
+1. **Initialization:** Initialize the neural network model architecture with the specified number of input units, hidden layers, hidden neurons, and output units. Also, initialize the weights and biases of the network, either randomly or using a specific initialization method such as Xavier.
 
-2. Forward Propagation: Perform forward propagation to compute the predicted outputs of the neural network for a given input batch. This involves passing the input data through each layer of the network, applying activation functions, and generating the final output predictions.
+2. **Forward Propagation:** Perform forward propagation to compute the predicted outputs of the neural network for a given input batch. This involves passing the input data through each layer of the network, applying activation functions, and generating the final output predictions.
 
-3. Loss Computation: Calculate the loss function value, which measures the difference between the predicted outputs and the actual target labels. For our assignment, we used both cross-entropy and mean squared error (MSE) loss functions.
+3. **Loss Computation:** Calculate the loss function value, which measures the difference between the predicted outputs and the actual target labels. For our assignment, we used both cross-entropy and mean squared error (MSE) loss functions.
 
-4. Backward Propagation: Conduct backward propagation to compute the gradients of the loss function with respect to the weights and biases of the network. This involves applying the chain rule to propagate the error backward through the network, computing the gradients at each layer.
+4. **Backward Propagation:** Conduct backward propagation to compute the gradients of the loss function with respect to the weights and biases of the network. This involves applying the chain rule to propagate the error backward through the network, computing the gradients at each layer.
 
-5. Parameter Updates: Update the weights and biases of the network using an optimization algorithm such as gradient descent, momentum-based methods, RMSProp, or Adam. This step adjusts the model parameters to minimize the loss function and improve performance.
+5. **Parameter Updates:** Update the weights and biases of the network using an optimization algorithm such as gradient descent, Momentum gradient, Nesterov accelerated gradient, RMSProp, Adam, or Nadam. This step adjusts the model parameters to minimize the loss function and improve performance.
 
-6. Validation and Testing: Evaluate the trained model on a validation dataset to monitor its performance and prevent overfitting. Compute metrics such as accuracy, loss, and other relevant measures. Finally, assess the model's generalization capability on a separate test dataset.
+6. **Validation and Testing:** Evaluate the trained model on a validation dataset to monitor its performance and prevent overfitting. Compute metrics such as accuracy, loss, and other relevant measures. Finally, assess the model's generalization capability on a separate test dataset.
 
 <br>
 
