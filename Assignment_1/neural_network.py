@@ -80,9 +80,9 @@ class NeuralNetwork:
         return exp_x / np.sum(exp_x, axis=0)
         
     
-    def apply_mse(self, pred_output, Y):
+    def diff_mse(self, pred_output, Y):
       one_hot_Y = self.one_hot(Y)
-      return -2 * np.multiply((pred_output - one_hot_Y), np.multiply(pred_output, (1 - pred_output)))
+      return np.multiply((pred_output - one_hot_Y), np.multiply(pred_output, (1 - pred_output)))
     
 
 
@@ -161,7 +161,7 @@ class NeuralNetwork:
       if loss == 'cross_entropy':
         dA[num_hidden_layers] = pred_output - one_hot_Y
       elif loss == 'mse':
-        dA[num_hidden_layers] = self.apply_mse(pred_output, Y)
+        dA[num_hidden_layers] = self.diff_mse(pred_output, Y)
 
       for k in range(num_hidden_layers, 0, -1):
         dW[k] = np.dot(dA[k], fwd_H[k-1].T)
@@ -418,13 +418,13 @@ def train_neural_network(nn, x_train_input, y_train, x_test_input, y_test, x_val
     _, _, val_pred = nn.feedforward_propagation(x_val, weights, biases, num_hidden_layers, activation_function)
     val_one_hot = nn.one_hot(y_val)
     val_loss = nn.loss_function(val_pred, val_one_hot, loss, weights, weight_decay)
-    if(loss == 'mse'):
+    if loss == 'mse':
       val_loss = val_loss / (data_size / batch_size)
 
     _, _, test_pred = nn.feedforward_propagation(x_test_input, weights, biases, num_hidden_layers, activation_function)
     test_one_hot = nn.one_hot(y_test)
     test_loss = nn.loss_function(test_pred, test_one_hot, loss, weights, weight_decay)
-    if(loss == 'mse'):
+    if loss == 'mse':
       test_loss = test_loss / (data_size / batch_size)
     
     val_accuracy = nn.compute_accuracy(x_val, y_val, weights, biases, num_hidden_layers, activation_function)
