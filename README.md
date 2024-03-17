@@ -22,7 +22,7 @@ Link to the wandb report: [Link](https://api.wandb.ai/links/cs23m024-gaurav/uqtf
 | Name | Default Value | Description |
 | :---: | :-------------: | :----------- |
 | `--wandb_project` | CS6910_Assignment_1 | Project name used to track experiments in Weights & Biases dashboard |
-| `--wandb_entity` | Gaurav  | Wandb Entity used to track experiments in the Weights & Biases dashboard. |
+| `--wandb_entity` | CS23M024  | Wandb Entity used to track experiments in the Weights & Biases dashboard. |
 | `--dataset` | fashion_mnist | choices:  ["mnist", "fashion_mnist"] |
 | `--epochs` | 10 |  Number of epochs to train neural network.|
 | `--batch_size` | 64 | Batch size used to train neural network. | 
