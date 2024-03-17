@@ -1,7 +1,7 @@
 # CS6910 Assignment 1
 
 ### Contents
-- `Train.py`: Main file for training the neural network
+- `Train.py`: Containing main function for training the neural network
   
 - `Assignment_1/`
   
