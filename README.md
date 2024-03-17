@@ -11,6 +11,31 @@
     
   - `neural_network.py`: contains the class NeuralNetwork and all the functions that define the NN architectures used.
 
+<br>
+
+### Instructions for running the Neural Network code
+To train the neural network, please follow the steps given below:
+
+- Import the required libraries:
+   ```
+   pip install -r Assignment_1/Requirements.txt
+
+- Please put your Wandb API key in `Train.py` before running the file to track the runs.
+
+   
+- Run the below code to run on default parameters.
+   ```
+   Python Train.py
+   
+- Use your parameters:
+    - Example: `Python Train.py --batch_size 64` to run the NN with a batch size 64.
+
+<br>
+
+Link to the wandb report: [Link](https://api.wandb.ai/links/cs23m024-gaurav/uqtf06z1)
+
+<br>
+
 ### Dataset
 
 I have used the `fashion_mnist` and `mnist` datasets provided by Tensorflow keras.
@@ -37,27 +62,6 @@ In a typical feedforward neural network architecture, there are three main types
 
 Additionally, each neuron in the network is associated with an activation function, which introduces non-linearity into the model and allows it to learn complex relationships in the data. Activation functions that I have used are sigmoid, tanh, ReLU (Rectified Linear Unit), and identity.
 
-
-### Instructions for running the Neural Network code
-To train the neural network, please follow the steps given below:
-
-- Import the required libraries:
-   ```
-   pip install -r Assignment_1/Requirements.txt
-
-- Please put your Wandb API key in `Train.py` before running the file to track the runs.
-
-   
-- Run the below code to run on default parameters.
-   ```
-   Python Train.py
-   
-- Use your parameters:
-    - Example: `Python Train.py --batch_size 64` to run the NN with a batch size 64.
-
-<br>
-
-Link to the wandb report: [Link](https://api.wandb.ai/links/cs23m024-gaurav/uqtf06z1)
 
 <br>
 
