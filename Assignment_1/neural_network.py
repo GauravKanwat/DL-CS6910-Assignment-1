@@ -96,7 +96,7 @@ class NeuralNetwork:
         if k == 0:
           
           a.append(np.dot(weights[k], X) + biases[k])
-          if(activation_function == "reLU"):
+          if(activation_function == "ReLU"):
             h.append(self.reLU(a[k]))
           elif(activation_function == "sigmoid"):
             h.append(self.sigmoid(a[k]))
@@ -108,7 +108,7 @@ class NeuralNetwork:
         else:
           
           a.append(np.dot(weights[k], h[k-1]) + biases[k])
-          if(activation_function == "reLU"):
+          if(activation_function == "ReLU"):
             h.append(self.reLU(a[k]))
           elif(activation_function == "sigmoid"):
             h.append(self.sigmoid(a[k]))
@@ -160,7 +160,7 @@ class NeuralNetwork:
 
       if loss == 'cross_entropy':
         dA[num_hidden_layers] = pred_output - one_hot_Y
-      elif loss == 'mse':
+      elif loss == 'mean_squared_error' or loss == 'mse':
         dA[num_hidden_layers] = self.diff_mse(pred_output, Y)
 
       for k in range(num_hidden_layers, 0, -1):
@@ -168,7 +168,7 @@ class NeuralNetwork:
         dB[k] = np.mean(dA[k], axis=1, keepdims=True)
 
         dH[k-1] = np.dot(weights[k].T, dA[k])
-        if(activation_function == "reLU"):
+        if(activation_function == "ReLU"):
           dA[k-1] = np.multiply(dH[k-1], self.deriv_reLU(fwd_A[k-1]))
         elif(activation_function == "sigmoid"):
           dA[k-1] = np.multiply(dH[k-1], self.deriv_sigmoid(fwd_A[k-1]))
@@ -197,7 +197,7 @@ class NeuralNetwork:
         total_loss = cross_entropy_loss + reg_loss
 
       # Mean Squared Error  
-      elif(loss == 'mse'):
+      elif loss == 'mean_squared_error' or loss == 'mse':
         mse_loss = np.mean(np.sum((y_pred - y_true) ** 2))
 
         # L2 Regularisation
@@ -418,13 +418,13 @@ def train_neural_network(nn, x_train_input, y_train, x_test_input, y_test, x_val
     _, _, val_pred = nn.feedforward_propagation(x_val, weights, biases, num_hidden_layers, activation_function)
     val_one_hot = nn.one_hot(y_val)
     val_loss = nn.loss_function(val_pred, val_one_hot, loss, weights, weight_decay)
-    if loss == 'mse':
+    if loss == 'mean_squared_error' or loss == 'mse':
       val_loss = val_loss / (data_size / batch_size)
 
     _, _, test_pred = nn.feedforward_propagation(x_test_input, weights, biases, num_hidden_layers, activation_function)
     test_one_hot = nn.one_hot(y_test)
     test_loss = nn.loss_function(test_pred, test_one_hot, loss, weights, weight_decay)
-    if loss == 'mse':
+    if loss == 'mean_squared_error' or loss == 'mse':
       test_loss = test_loss / (data_size / batch_size)
     
     val_accuracy = nn.compute_accuracy(x_val, y_val, weights, biases, num_hidden_layers, activation_function)

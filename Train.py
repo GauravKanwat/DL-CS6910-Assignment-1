@@ -74,7 +74,7 @@ def main(args):
   sweep_config = {
      'method' : 'random',
      'project' : args.wandb_project,
-     'name' : 'Testing MSE',
+     'name' : 'Sweep',
      'entity' : args.wandb_entity,
      'metric' : {
         'name' : 'val_accuracy',
@@ -135,7 +135,7 @@ def main(args):
   def train():
     with wandb.init(project = args.wandb_project, entity = args.wandb_entity) as run:
       
-      # Creates names of runs based on parameters. Example => hl_4_bs_64_ac_reLU
+      # Creates names of runs based on parameters. Example => hl_4_bs_64_ac_ReLU
       config = wandb.config
       run_name = "hl_" + str(config.num_hidden_layers) + "_bs_" + str(config.batch_size) + "_ac_" + config.activation_function
       wandb.run.name = run_name
