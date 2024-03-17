@@ -347,7 +347,7 @@ def train_neural_network(nn, x_train_input, y_train, x_test_input, y_test, x_val
           dW, dB = nn.back_propagation(Y_batch, fwd_a, fwd_h, weights, biases, pred_output, num_hidden_layers, activation_function, loss)
           weights, biases, _, _ = nn.momentum_based_gradient_descent(weights, biases, prev_weights, prev_biases, dW, dB, eta, momentum)
 
-        elif optimizer == "nesterov":
+        elif optimizer == "nesterov" or optimizer == "nag":
           
           beta = momentum
 
