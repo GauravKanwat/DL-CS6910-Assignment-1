@@ -23,7 +23,7 @@ To train the neural network, please follow the steps given below:
 - Please put your Wandb API key in `Train.py` before running the file to track the runs.
 
    
-- Run the below code to run on default parameters
+- Run the below code to run on default parameters (check the end of file for default parameters).
    ```
    Python Train.py
    
