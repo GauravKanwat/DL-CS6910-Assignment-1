@@ -365,7 +365,7 @@ def train_neural_network(nn, x_train_input, y_train, x_test_input, y_test, x_val
           dW, dB = nn.back_propagation(Y_batch, fwd_a, fwd_h, lookahead_w, lookahead_b, pred_output, num_hidden_layers, activation_function, loss)
           weights, biases, prev_weights, prev_biases = nn.momentum_based_gradient_descent(weights, biases, prev_weights, prev_biases, dW, dB, eta, beta)
 
-        elif optimizer == "rmsProp":
+        elif optimizer == "rmsprop":
           fwd_a, fwd_h, pred_output = nn.feedforward_propagation(X_batch, weights, biases, num_hidden_layers, activation_function)
 
           one_hot_Y = nn.one_hot(Y_batch)
