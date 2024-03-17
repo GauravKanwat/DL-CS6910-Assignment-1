@@ -11,6 +11,32 @@
     
   - `neural_network.py`: contains the class NeuralNetwork and all the functions that define the NN architectures used.
 
+### Dataset
+
+I have used the `fashion_mnist` and `mnist` datasets provided by Tensorflow keras.
+
+Training has been performed on the `fashion_mnist` dataset.
+
+It consist of 60,000 grayscale images of clothing items from 10 different categories, with each image being 28x28 pixels in size. I have split the dataset into a training set, a validation set, and a test set.
+
+- Training Set: This portion of the dataset contains 50,000 images. These images are used to train machine learning models, allowing them to learn patterns and features present in the data. Each image in the training set is associated with a label indicating the category of clothing it represents.
+
+- Validation Set: The validation set consists of 10,000 images. It is used to fine-tune model hyperparameters and monitor the model's performance during training. By evaluating the model on the validation set at regular intervals, adjustments can be made to improve the model's generalization ability and prevent overfitting.
+
+- Test Set: The test set also contains 10,000 images and serves as an independent dataset to evaluate the final performance of the trained model. The model has not seen these images during training or validation, allowing for an unbiased assessment of its accuracy and effectiveness in classifying unseen data.
+
+### Model Architecture
+
+In a typical feedforward neural network architecture, there are three main types of layers:
+
+1. Input Layer: This layer consists of neurons that receives the input data. The number of neurons in the input layer corresponds to the number of dimensions in the input data.
+
+2. Hidden Layers: These layers are positioned between the input and output layers and are responsible for learning complex patterns and representations from the input data. Each hidden layer consists of multiple neurons, and the number of hidden layers and neurons per layer is determined based on the complexity of the problem and the amount of available data.
+
+3. Output Layer: This layer produces the final output of the neural network. The number of neurons in the output layer depends on the input. For example, in a binary classification task, there may be one neuron representing each class, while in a multi-class classification task, there may be multiple neurons, each corresponding to a different class.
+
+Additionally, each neuron in the network is associated with an activation function, which introduces non-linearity into the model and allows it to learn complex relationships in the data. Activation functions that I have used are sigmoid, tanh, ReLU (Rectified Linear Unit), and identity.
+
 
 ### Instructions for running the Neural Network code
 To train the neural network, please follow the steps given below:
