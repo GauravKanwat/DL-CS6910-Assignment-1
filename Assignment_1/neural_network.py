@@ -40,7 +40,7 @@ class NeuralNetwork:
         return weights, biases, prev_weights, prev_biases
 
       # Random initialization
-elif initialization == "random":
+      elif initialization == "random":
         weights[0] = np.random.rand(hidden_neurons_list[0], num_of_pixels) - 0.5
         biases[0] = np.random.rand(hidden_neurons_list[0], 1) - 0.5
         for l in range(num_hidden_layers):
