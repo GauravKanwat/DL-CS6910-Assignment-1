@@ -354,6 +354,8 @@ def train_neural_network(nn, x_train_input, y_train, x_test_input, y_test, x_val
           weights, biases, _, _ = nn.momentum_based_gradient_descent(weights, biases, prev_weights, prev_biases, dW, dB, eta, momentum)
 
         elif optimizer == "nesterov":
+          
+          beta = momentum
 
           # Partial updates
           for l in range(1, num_hidden_layers+1):
