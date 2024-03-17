@@ -2,21 +2,38 @@
 
 ### Contents
 - `Train.py`: Main file for training the neural network
+  
 - `Assignment_1/`
+  
   - `Requirements.txt`: txt file containing all the Python libraries needed to train NN.
+    
   - `hyperparameter_config.py`: the file containing all the hyperparameters and their default values.
+    
   - `neural_network.py`: contains the class NeuralNetwork and all the functions that define the NN architectures used.
+
 
 ### Instructions for running the Neural Network code
 To train the neural network, please follow the steps given below:
-1. Import the required libraries by typing `pip install -r Assignment_1/Requirements.txt`.
-2. Please put your Wandb API key in `Train.py` before running the file to track the runs.
-3. Run `Python Train.py`, to run on default parameters.
-4. Run `Python Train.py --parameters`, to use your parameters.
-   - Example: `Python Train.py --batch_size 64` to run the NN with a batch size of 64.
-5. Track the progress of runs and sweeps on [wandb.ai](https://wandb.ai/home).
+
+- Import the required libraries:
+   ```
+   pip install -r Assignment_1/Requirements.txt
+
+- Please put your Wandb API key in `Train.py` before running the file to track the runs.
+
+   
+- Run the below code to run on default parameters.
+   ```
+   Python Train.py
+   
+- Use your parameters:
+    - Example: `Python Train.py --batch_size 64` to run the NN with a batch size 64.
+
+<br>
 
 Link to the wandb report: [Link](https://api.wandb.ai/links/cs23m024-gaurav/uqtf06z1)
+
+<br>
 
 ### Hyperparameters and their default values
 | Name | Default Value | Description |
